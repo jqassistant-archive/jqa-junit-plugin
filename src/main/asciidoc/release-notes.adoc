@@ -1,6 +1,11 @@
 
 = JUnit Plugin
 
+== 1.11.0
+
+* Added new concept `junit4:RunWith`
+** This concept labels all classes annotated with `org.junit.runner.RunWith` with `Junit4` and `Test`.
+
 == 1.10.0
 
 * Added support for additional assert methods to concept `junit5:AssertMethod`.
