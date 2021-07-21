@@ -241,7 +241,7 @@ public class Junit4IT extends AbstractJunitIT {
         scanClasses(EnclosedTestClass.class);
         assertThat(applyConcept("junit4:RunWith").getStatus(), equalTo(SUCCESS));
         store.beginTransaction();
-        List<Object> methods = query("match (m:Junit4:Test {name:\"EnclosedTestClass\"}) return m").getColumn("m");
+        List<Object> methods = query("MATCH (m:Junit4:Test {name:\"EnclosedTestClass\"}) RETURN m").getColumn("m");
         assertThat(methods, hasItem(typeDescriptor(EnclosedTestClass.class)));
         store.commitTransaction();
     }

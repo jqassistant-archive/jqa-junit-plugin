@@ -5,7 +5,7 @@ import org.junit.experimental.runners.Enclosed;
 import org.junit.runner.RunWith;
 
 /**
- * A JUnit4 test classes using enclosed test classes.
+ * A JUnit 4 test classes using enclosed test classes.
  */
 @RunWith(Enclosed.class)
 public class EnclosedTestClass {
