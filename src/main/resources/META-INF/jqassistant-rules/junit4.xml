@@ -161,4 +161,15 @@
       ]]></cypher>
     </concept>
 
+    <concept id="junit4:RunWith">
+        <description>Labels all classes annotated with org.junit.runner.RunWith with "Junit4" and "Test".</description>
+        <cypher><![CDATA[
+            MATCH
+                (source:Type)-[:ANNOTATED_BY]->(target)-[:OF_TYPE]->({fqn:"org.junit.runner.RunWith"})
+            SET
+                source:Junit4:Test
+            RETURN
+                source
+        ]]></cypher>
+    </concept>
 </jqa:jqassistant-rules>

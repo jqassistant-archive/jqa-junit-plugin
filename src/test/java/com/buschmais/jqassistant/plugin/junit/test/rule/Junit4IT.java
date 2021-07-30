@@ -9,12 +9,10 @@ import com.buschmais.jqassistant.core.rule.api.model.Constraint;
 import com.buschmais.jqassistant.core.rule.api.model.RuleException;
 import com.buschmais.jqassistant.plugin.common.test.scanner.MapBuilder;
 import com.buschmais.jqassistant.plugin.java.api.model.MethodDescriptor;
-import com.buschmais.jqassistant.plugin.junit.test.set.junit4.Assertions4Junit4;
-import com.buschmais.jqassistant.plugin.junit.test.set.junit4.IgnoredTest;
-import com.buschmais.jqassistant.plugin.junit.test.set.junit4.TestClass;
-import com.buschmais.jqassistant.plugin.junit.test.set.junit4.TestSuite;
+import com.buschmais.jqassistant.plugin.junit.test.set.junit4.*;
 
 import org.junit.Assert;
+import org.junit.experimental.runners.Enclosed;
 import org.junit.jupiter.api.Test;
 
 import static com.buschmais.jqassistant.core.report.api.model.Result.Status.SUCCESS;
@@ -232,6 +230,19 @@ public class Junit4IT extends AbstractJunitIT {
         store.beginTransaction();
         List<Object> methods = query("match (m:AfterClass:Junit4:Method) return m").getColumn("m");
         assertThat(methods, hasItem(methodDescriptor(TestClass.class, "afterClass")));
+        store.commitTransaction();
+    }
+
+    /**
+     * Verifies the concept "junit4:RunWith".
+     */
+    @Test
+    public void runWith() throws Exception {
+        scanClasses(EnclosedTestClass.class);
+        assertThat(applyConcept("junit4:RunWith").getStatus(), equalTo(SUCCESS));
+        store.beginTransaction();
+        List<Object> methods = query("MATCH (m:Junit4:Test {name:\"EnclosedTestClass\"}) RETURN m").getColumn("m");
+        assertThat(methods, hasItem(typeDescriptor(EnclosedTestClass.class)));
         store.commitTransaction();
     }
 
